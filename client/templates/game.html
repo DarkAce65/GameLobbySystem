@@ -9,7 +9,7 @@
 					<div class="panel-heading">{{gameType}}</div>
 					<div class="panel-body">
 						{{#each playerId in gameData.players}}
-							<p>{{playerId}}</p>
+							<p>{{#if isInRole "owner" _id}}<b>Owner: </b>{{/if}}{{playerId}}</p>
 						{{/each}}
 					</div>
 				</div>

@@ -16,7 +16,7 @@
 								<div class="col-sm-6">
 									<p class="btn-group btn-group-sm">
 										<span class="btn-group-addon">{{numPlayers}} / {{game.gameData.maxPlayers}}</span>
-										{{#if equals userId owner}}<button class="btn btn-danger deleteLobby">Delete</button>{{/if}}
+										{{#if isInRole "owner" game._id}}<button class="btn btn-danger deleteLobby">Delete</button>{{/if}}
 										{{#if contains userId game.gameData.players}}<button class="btn btn-warning leaveLobby">Leave</button>{{else}}<button class="btn btn-success joinLobby" data-private="{{private}}">Join</button>{{/if}}
 									</p>
 									{{#if game.status.private}}
