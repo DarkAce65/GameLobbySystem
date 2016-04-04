@@ -1,15 +1,15 @@
 <template name="game">
 	<div class="container">
 		<div class="page-header">
-			<p class="h1">{{lobbyName}}</p>
+			<p class="h1">{{lobbyData.lobbyName}}</p>
 		</div>
 		<div class="row">
 			<div class="col-sm-8">
 				<div class="panel panel-default">
 					<div class="panel-heading">{{gameType}}</div>
 					<div class="panel-body">
-						{{#each playerId in gameData.players}}
-							<p>{{#if isInRole "owner" _id}}<b>Owner: </b>{{/if}}{{playerId}}</p>
+						{{#each playerId in lobbyData.players}}
+							<p>{{#if isInRole "owner" lobbyData.lobbyName}}<b>Owner: </b>{{/if}}{{playerId}}</p>
 						{{/each}}
 					</div>
 				</div>

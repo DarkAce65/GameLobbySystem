@@ -7,6 +7,6 @@ Template.gamelist.helpers({
 		return Games.find();
 	},
 	"numPlayers": function() {
-		return this.gameData.players.length;
+		return this.lobbyData.players.length;
 	}
 });
