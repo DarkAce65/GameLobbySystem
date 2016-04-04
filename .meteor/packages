@@ -23,5 +23,7 @@ insecure                # Allow all DB writes from clients (for prototyping)
 less
 iron:router
 accounts-base
+artwells:accounts-guest
+alanning:roles
 nemo64:bootstrap
 fortawesome:fontawesome
