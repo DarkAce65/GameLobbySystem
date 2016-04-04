@@ -1,0 +1,42 @@
+<template name="gamelist">
+	<div class="container">
+		<div class="page-header">
+			<p class="h1">Games</p>
+		</div>
+		<div class="row">
+			<div class="col-sm-8">
+				<div class="panel panel-default">
+					<div class="panel-heading">Games</div>
+					<div class="panel-body">
+						{{#each game in games}}
+							<div class="lobby row" data-id="{{game._id}}">
+								<div class="col-sm-6">
+									<h4 class="lobbyName">{{game.lobbyName}} {{#if game.status.private}}<i class="fa fa-lock"></i>{{/if}}<br><small class="lobbyName">{{game.gameType}}</small></h4>
+								</div>
+								<div class="col-sm-6">
+									<p class="btn-group btn-group-sm">
+										<span class="btn-group-addon">{{numPlayers}} / {{game.gameData.maxPlayers}}</span>
+										{{#if equals userId owner}}<button class="btn btn-danger deleteLobby">Delete</button>{{/if}}
+										{{#if contains userId game.gameData.players}}<button class="btn btn-warning leaveLobby">Leave</button>{{else}}<button class="btn btn-success joinLobby" data-private="{{private}}">Join</button>{{/if}}
+									</p>
+									{{#if game.status.private}}
+										<div class="lobbyPassword">
+											<input type="text" class="form-control input-sm" placeholder="Enter password...">
+										</div>
+									{{/if}}
+								</div>
+							</div>
+						{{/each}}
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="list-group">
+					<div class="list-group-item list-group-item-divider"><i class="fa fa-fw fa-bars"></i> {{menuHeader}}</div>
+					<button id="newLobby" class="list-group-item"><i class="fa fa-fw fa-globe"></i> Create Game Lobby</button>
+					<button id="changeUsername" class="list-group-item" data-toggle="modal" data-target="#usernameModal"><i class="fa fa-fw fa-user"></i> {{#if username}}Change{{else}}Set{{/if}} Username</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
