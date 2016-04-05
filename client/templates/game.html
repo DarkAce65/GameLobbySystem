@@ -6,7 +6,7 @@
 		<div class="row">
 			<div class="col-sm-8">
 				<div class="panel panel-default">
-					<div class="panel-heading">{{gameType}}</div>
+					<div class="panel-heading">{{gameName}}</div>
 					<div class="panel-body">
 						{{#each playerId in lobbyData.players}}
 							<p>{{#if isInRole "owner" lobbyData.lobbyName}}<b>Owner: </b>{{/if}}{{playerId}}</p>
