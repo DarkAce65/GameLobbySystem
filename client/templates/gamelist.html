@@ -7,9 +7,9 @@
 			<div class="col-sm-8">
 				<div class="panel panel-default">
 					<div class="panel-heading">Games</div>
-					<div class="panel-body">
+					<div id="gamelist" class="panel-body">
 						{{#each games}}
-							<div class="lobby row" data-id="{{_id}}">
+							<div class="lobby row">
 								<div class="col-sm-6">
 									<h4 class="lobbyName">{{lobbyData.lobbyName}} {{#if password}}<i class="fa fa-lock"></i>{{/if}}<br><small class="lobbyName">{{gameName}}</small></h4>
 								</div>
