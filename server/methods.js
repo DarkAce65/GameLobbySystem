@@ -9,8 +9,8 @@ Meteor.methods({
 		var game = {
 			"gameName": gameName,
 			"inGame": false,
-			"password": false,
 			"lobbyData": {
+				"private": false,
 				"lobbyName": lobbyName,
 				"players": [this.userId],
 				"minPlayers": GAME_DEFINITIONS[gameName].minPlayers,
@@ -19,6 +19,7 @@ Meteor.methods({
 			"gameData": GAME_DEFINITIONS[gameName].gameData
 		};
 		if(password) {
+			game.lobbyData.private = true;
 			game.password = password;
 		}
 
