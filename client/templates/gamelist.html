@@ -11,7 +11,7 @@
 						{{#each game in games}}
 							<div class="lobby row" data-id="{{game._id}}">
 								<div class="col-sm-6">
-									<h4 class="lobbyName">{{game.lobbyName}} {{#if game.password}}<i class="fa fa-lock"></i>{{/if}}<br><small class="lobbyName">{{game.gameName}}</small></h4>
+									<h4 class="lobbyName">{{game.lobbyData.lobbyName}} {{#if game.password}}<i class="fa fa-lock"></i>{{/if}}<br><small class="lobbyName">{{game.gameName}}</small></h4>
 								</div>
 								<div class="col-sm-6">
 									<p class="btn-group btn-group-sm">
