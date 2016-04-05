@@ -1,5 +1,15 @@
 AccountsGuest.anonymous = true;
 
-Meteor.publish("games", function() {
-	return Games.find();
+Meteor.publish("gameList", function() {
+	return Games.find({}, {
+		"fields": {
+			gameType: 1,
+			inGame: 1,
+			lobbyData: 1
+		}
+	});
+});
+
+Meteor.publish("gameData", function(_id) {
+	return Games.find(_id);
 });
