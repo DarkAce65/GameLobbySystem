@@ -3,7 +3,7 @@ Meteor.methods({
 		if(!GAME_DEFINITIONS.hasOwnProperty(gameName)) {
 			throw new Meteor.Error("unrecognized-game", "A game of the specified type is not defined.");
 		}
-		if(Games.findOne({"lobbbyData.lobbyName": lobbyName})) {
+		if(Games.findOne({"lobbyData.lobbyName": lobbyName})) {
 			throw new Meteor.Error("lobby-name-taken", "A lobby with this name already exists.");
 		}
 		var game = {
