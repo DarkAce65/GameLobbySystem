@@ -24,5 +24,6 @@ Meteor.methods({
 		}
 
 		Games.insert(game);
+		Roles.addUsersToRoles(this.userId, ["player", "owner"], lobbyName);
 	}
 });
