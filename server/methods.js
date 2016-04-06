@@ -25,5 +25,16 @@ Meteor.methods({
 
 		Games.insert(game);
 		Roles.addUsersToRoles(this.userId, ["player", "owner"], lobbyName);
+	},
+	"joinLobby": function(lobbyName, password) {
+		var game = Games.findOne({"lobbyData.lobbyName": lobbyName});
+		if(!game) {
+			throw new Meteor.Error(404, "Lobby not found.");
+		}
+		if(game.private && game.password !== password) {
+			throw new Meteor.Error(401, "Incorrect password for lobby.");
+		}
+
+		Roles.addUsersToRoles(this.userId, ["player"], lobbyName);
 	}
 });
