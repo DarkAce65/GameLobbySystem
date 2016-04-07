@@ -34,7 +34,11 @@ Meteor.methods({
 		if(game.lobbyData.private && game.password !== password) {
 			throw new Meteor.Error(401, "Incorrect password for lobby.");
 		}
+		if(Roles.userIsInRole(this.userId, "player", lobbyName)) {
+			throw new Meteor.Error("already-joined", "You have already join this lobby.");
+		}
 
+		Games.update({"lobbyData.lobbyName": lobbyName}, {$push: {"lobbyData.players": this.userId}});
 		Roles.addUsersToRoles(this.userId, ["player"], lobbyName);
 	}
 });
