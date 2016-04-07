@@ -31,7 +31,7 @@ Meteor.methods({
 		if(!game) {
 			throw new Meteor.Error(404, "Lobby not found.");
 		}
-		if(game.private && game.password !== password) {
+		if(game.lobbyData.private && game.password !== password) {
 			throw new Meteor.Error(401, "Incorrect password for lobby.");
 		}
 
