@@ -52,5 +52,12 @@ Template.gamelist.events({
 				}
 			});
 		}
+	},
+	"click .deleteLobby": function(e) {
+		Meteor.call("deleteLobby", this.lobbyData.lobbyName, function(error) {
+			if(error) {
+				console.log(error.message);
+			}
+		});
 	}
 });

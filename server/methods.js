@@ -40,5 +40,19 @@ Meteor.methods({
 
 		Games.update({"lobbyData.lobbyName": lobbyName}, {$push: {"lobbyData.players": this.userId}});
 		Roles.addUsersToRoles(this.userId, ["player"], lobbyName);
+	},
+	"deleteLobby": function(lobbyName) {
+		var game = Games.findOne({"lobbyData.lobbyName": lobbyName});
+		if(!game) {
+			throw new Meteor.Error(404, "Lobby not found.");
+		}
+		if(!Roles.userIsInRole(this.userId, "owner", lobbyName)) {
+			throw new Meteor.Error(403, "You don't have permission to delete this lobby.");
+		}
+
+		var update = {$unset: {}};
+		update.$unset["roles." + lobbyName] = "";
+		Meteor.users.update({"_id": {$in: game.lobbyData.players}}, update, {"multi": true});
+		Games.remove({"lobbyData.lobbyName": lobbyName});
 	}
 });
