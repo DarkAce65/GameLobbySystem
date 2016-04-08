@@ -1,5 +1,8 @@
 Meteor.methods({
 	"createGame": function(gameName, lobbyName, password) {
+		if(!Meteor.users.findOne(this.userId).name) {
+			throw new Meteor.Error(401, "You haven't set a name for yourself.");
+		}
 		if(!GAME_DEFINITIONS.hasOwnProperty(gameName)) {
 			throw new Meteor.Error("unrecognized-game", "A game of the specified type is not defined.");
 		}
@@ -27,6 +30,9 @@ Meteor.methods({
 		Roles.addUsersToRoles(this.userId, ["owner"], lobbyName);
 	},
 	"joinLobby": function(lobbyName, password) {
+		if(!Meteor.users.findOne(this.userId).name) {
+			throw new Meteor.Error(401, "You haven't set a name for yourself.");
+		}
 		var game = Games.findOne({"lobbyData.lobbyName": lobbyName});
 		if(!game) {
 			throw new Meteor.Error(404, "Lobby not found.");
