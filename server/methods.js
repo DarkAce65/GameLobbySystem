@@ -1,25 +1,25 @@
 Meteor.methods({
-	"createGame": function(gameName, lobbyName, password) {
+	"createGame": function(gameKey, lobbyName, password) {
 		if(!Meteor.users.findOne(this.userId).name) {
 			throw new Meteor.Error(401, "You haven't set a name for yourself.");
 		}
-		if(!GAME_DEFINITIONS.hasOwnProperty(gameName)) {
+		var definition = GameDefinitions.findOne({"gameKey": gameKey});
+		if(!definition) {
 			throw new Meteor.Error("unrecognized-game", "A game of the specified type is not defined.");
 		}
 		if(Games.findOne({"lobbyData.lobbyName": lobbyName})) {
 			throw new Meteor.Error("lobby-name-taken", "A lobby with this name already exists.");
 		}
 		var game = {
-			"gameName": gameName,
+			"gameKey": gameKey,
 			"inGame": false,
+			"players": [this.userId],
 			"lobbyData": {
-				"private": false,
 				"lobbyName": lobbyName,
-				"players": [this.userId],
-				"minPlayers": GAME_DEFINITIONS[gameName].minPlayers,
-				"maxPlayers": GAME_DEFINITIONS[gameName].maxPlayers
+				"private": false,
+				"playerCount": 1
 			},
-			"gameData": GAME_DEFINITIONS[gameName].gameData
+			"gameData": definition.gameDataDefaults
 		};
 		if(password) {
 			game.lobbyData.private = true;
@@ -44,7 +44,10 @@ Meteor.methods({
 			throw new Meteor.Error("already-joined", "You have already join this lobby.");
 		}
 
-		Games.update({"lobbyData.lobbyName": lobbyName}, {$push: {"lobbyData.players": this.userId}});
+		Games.update({"lobbyData.lobbyName": lobbyName}, {
+			$inc: {"lobbyData.playerCount": 1},
+			$push: {"players": this.userId}
+		});
 	},
 	"deleteLobby": function(lobbyName) {
 		var game = Games.findOne({"lobbyData.lobbyName": lobbyName});
