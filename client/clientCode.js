@@ -4,7 +4,12 @@ Template.registerHelper("contains", function(item, array) {
 
 Template.gamelist.helpers({
 	"games": function() {
-		return Games.find();
+		return Games.find({}, {
+			sort: {
+				"gameName": 1,
+				"lobbyData.lobbyName": 1
+			}
+		});
 	},
 	"numPlayers": function() {
 		return this.lobbyData.players.length;

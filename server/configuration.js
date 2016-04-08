@@ -2,10 +2,10 @@ AccountsGuest.anonymous = true;
 
 Meteor.publish("gameList", function() {
 	return Games.find({}, {
-		"fields": {
-			gameName: 1,
-			inGame: 1,
-			lobbyData: 1
+		fields: {
+			"gameName": 1,
+			"inGame": 1,
+			"lobbyData": 1
 		}
 	});
 });
