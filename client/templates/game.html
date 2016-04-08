@@ -9,7 +9,7 @@
 					<div class="panel-heading">{{gameName}}</div>
 					<div class="panel-body">
 						{{#each playerId in lobbyData.players}}
-							<p>{{#if isInRole "owner" lobbyData.lobbyName}}<b>Owner: </b>{{/if}}{{playerId}}</p>
+							<p>{{playerId}}</p>
 						{{/each}}
 					</div>
 				</div>
@@ -18,6 +18,7 @@
 				<div class="list-group">
 					<div class="list-group-item list-group-item-divider"><i class="fa fa-fw fa-bars"></i> Menu</div>
 					<button id="leaveLobby" class="list-group-item"><i class="fa fa-fw fa-sign-out"></i> Leave Lobby</button>
+					{{#if isInRole "owner" lobbyData.lobbyName}}<button id="deleteLobby" class="list-group-item"><i class="fa fa-fw fa-close"></i> Delete Lobby</button>{{/if}}
 				</div>
 			</div>
 		</div>
