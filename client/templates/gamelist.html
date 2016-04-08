@@ -33,7 +33,21 @@
 			<div class="col-sm-4">
 				<div class="list-group">
 					<div class="list-group-item list-group-item-divider"><i class="fa fa-fw fa-bars"></i> {{menuHeader}}</div>
-					<button id="newLobby" class="list-group-item"><i class="fa fa-fw fa-globe"></i> Create Game Lobby</button>
+					<button class="list-group-item" data-toggle="modal" data-target="#createLobby"><i class="fa fa-fw fa-globe"></i> Create Game Lobby</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="createLobby" class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title"></h4>
+				</div>
+				<div class="modal-body"></div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-primary">Create Lobby</button>
 				</div>
 			</div>
 		</div>
