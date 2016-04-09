@@ -1,15 +1,7 @@
 Meteor.methods({
-	"changeName": function(userId, name) {
-		console.log(Meteor.users.findOne({"name": name}));
-		if(Meteor.users.findOne({"name": name})) {
-			throw new Meteor.Error("name-taken", "This name has already been taken.");
-		}
-
-		Meteor.users.update(this.userId, {$set: {"name": name}});
-	},
 	"createGame": function(gameKey, lobbyName, password) {
-		if(!Meteor.users.findOne(this.userId).name) {
-			throw new Meteor.Error(401, "You haven't set a name for yourself.");
+		if(!Meteor.users.findOne(this.userId)) {
+			throw new Meteor.Error(401, "You are not logged in.");
 		}
 		var definition = GameDefinitions.findOne({"gameKey": gameKey});
 		if(!definition) {
@@ -38,8 +30,8 @@ Meteor.methods({
 		Roles.addUsersToRoles(this.userId, ["player", "owner"], lobbyName);
 	},
 	"joinLobby": function(lobbyName, password) {
-		if(!Meteor.users.findOne(this.userId).name) {
-			throw new Meteor.Error(401, "You haven't set a name for yourself.");
+		if(!Meteor.users.findOne(this.userId)) {
+			throw new Meteor.Error(401, "You are not logged in.");
 		}
 		var game = Games.findOne({"lobbyData.lobbyName": lobbyName});
 		if(!game) {
