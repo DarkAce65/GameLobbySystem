@@ -25,6 +25,9 @@ Template.activeGames.helpers({
 			}
 		});
 	},
+	"playerCount": function() {
+		return this.players.length;
+	},
 	"maxPlayers": function(gameKey) {
 		return GameDefinitions.findOne({"gameKey": gameKey}).maxPlayers;
 	}
@@ -38,6 +41,9 @@ Template.searchGames.helpers({
 				"lobbyData.lobbyName": 1
 			}
 		});
+	},
+	"playerCount": function() {
+		return this.players.length;
 	},
 	"maxPlayers": function(gameKey) {
 		return GameDefinitions.findOne({"gameKey": gameKey}).maxPlayers;
