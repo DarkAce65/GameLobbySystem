@@ -56,19 +56,20 @@ Meteor.publish("gameDefinitions", function() {
 	});
 });
 
-Meteor.publish("gameList", function(searchQuery) {
-	var query = {"players": {$elemMatch: {"_id": this.userId}}};
-	if(searchQuery) {
-		query = searchQuery;
+Meteor.publish("gameList", function(lobbyName, password) {
+	var fields = {
+		"gameKey": 1,
+		"inGame": 1,
+		"players": 1,
+		"lobbyData": 1
+	};
+	if(lobbyName && password) {
+		return Games.find({"lobbyData.lobbyName": lobbyName, "lobbyData.password": password}, {fields: fields});
 	}
-	return Games.find(query, {
-		fields: {
-			"gameKey": 1,
-			"inGame": 1,
-			"players": 1,
-			"lobbyData": 1
-		}
-	});
+	if(lobbyName) {
+		return Games.find({"lobbyData.lobbyName": lobbyName, "lobbyData.password": {$exists: false}}, {fields: fields});
+	}
+	return Games.find({"players": {$elemMatch: {"_id": this.userId}}}, {fields: fields});
 });
 
 Meteor.publish("gameData", function(_id) {

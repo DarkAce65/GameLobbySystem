@@ -16,6 +16,10 @@ Template.entry.events({
 	}
 });
 
+Template.activeGames.onCreated(function() {
+	this.subscribe("gameList");
+});
+
 Template.activeGames.helpers({
 	"games": function() {
 		return Games.find({"players": {$elemMatch: {"_id": Meteor.userId()}}}, {
@@ -33,6 +37,16 @@ Template.activeGames.helpers({
 	}
 });
 
+Template.searchGames.onCreated(function() {
+	var instance = this;
+
+	instance.searchLobbyName = new ReactiveVar("");
+	instance.searchPassword = new ReactiveVar("");
+	instance.autorun(function() {
+		instance.subscribe("gameList", instance.searchLobbyName.get(), instance.searchPassword.get());
+	});
+});
+
 Template.searchGames.helpers({
 	"games": function() {
 		return Games.find({"players": {$elemMatch: {"_id": {$ne: Meteor.userId()}}}}, {
@@ -47,6 +61,14 @@ Template.searchGames.helpers({
 	},
 	"maxPlayers": function(gameKey) {
 		return GameDefinitions.findOne({"gameKey": gameKey}).maxPlayers;
+	}
+});
+
+Template.searchGames.events({
+	"submit form": function(e) {
+		e.preventDefault();
+		Template.instance().searchLobbyName.set(e.target.gameName.value);
+		Template.instance().searchPassword.set(e.target.password.value);
 	}
 });
 
