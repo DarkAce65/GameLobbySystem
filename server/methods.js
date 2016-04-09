@@ -27,7 +27,6 @@ Meteor.methods({
 		}
 
 		Games.insert(game);
-		Roles.addUsersToRoles(this.userId, ["player", "owner"], lobbyName);
 	},
 	"addPlayerToGame": function(lobbyName, password) {
 		if(!Meteor.users.findOne(this.userId)) {
@@ -56,20 +55,21 @@ Meteor.methods({
 				}
 			}
 		});
-		Roles.addUsersToRoles(this.userId, ["player"], lobbyName);
 	},
 	"leaveLobby": function(lobbyName) {
 		var game = Games.findOne({"lobbyData.lobbyName": lobbyName});
 		if(!game) {
 			throw new Meteor.Error(404, "Lobby not found.");
 		}
-		if(!Roles.userIsInRole(this.userId, "player", lobbyName)) {
+		var inGame = false;
+		for(var i = 0; i < game.players.length; i++) {
+			if(game.players[i]._id === this.userId) {
+				inGame = true;
+			}
+		}
+		if(inGame) {
 			throw new Meteor.Error(400, "You are not in this lobby.");
 		}
-
-		var update = {$unset: {}};
-		update["$unset"]["roles." + lobbyName] = "";
-		Meteor.users.update(this.userId, update);
 
 		if(game.players.length <= 1) {
 			Games.remove({"lobbyData.lobbyName": lobbyName});
@@ -89,9 +89,6 @@ Meteor.methods({
 			throw new Meteor.Error(403, "You don't have permission to delete this lobby.");
 		}
 
-		var update = {$unset: {}};
-		update["$unset"]["roles." + lobbyName] = "";
-		Meteor.users.update({"_id": {$in: game.players}}, update, {"multi": true});
 		Games.remove({"lobbyData.lobbyName": lobbyName});
 	}
 });
