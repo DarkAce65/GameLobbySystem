@@ -13,23 +13,23 @@ Meteor.methods({
 		var game = {
 			"gameKey": gameKey,
 			"inGame": false,
-			"players": [this.userId],
+			"players": [{
+				"_id": this.userId,
+				"playerData": {}
+			}],
 			"lobbyData": {
-				"lobbyName": lobbyName,
-				"private": false,
-				"playerCount": 1
+				"lobbyName": lobbyName
 			},
 			"gameData": definition.gameDataDefaults
 		};
 		if(password) {
-			game.lobbyData.private = true;
-			game.password = password;
+			game.lobbyData.password = password;
 		}
 
 		Games.insert(game);
 		Roles.addUsersToRoles(this.userId, ["player", "owner"], lobbyName);
 	},
-	"joinLobby": function(lobbyName, password) {
+	"addPlayerToGame": function(lobbyName, password) {
 		if(!Meteor.users.findOne(this.userId)) {
 			throw new Meteor.Error(401, "You are not logged in.");
 		}
@@ -40,16 +40,21 @@ Meteor.methods({
 		if(game.lobbyData.private && game.password !== password) {
 			throw new Meteor.Error(401, "Incorrect password for lobby.");
 		}
-		if(Roles.userIsInRole(this.userId, "player", lobbyName)) {
-			throw new Meteor.Error("already-joined", "You have already join this lobby.");
+		for(var i = 0; i < game.players.length; i++) {
+			if(game.players[i]._id === this.userId) {
+				throw new Meteor.Error("already-joined", "You have already join this lobby.");
+			}
 		}
-		if(GameDefinitions.findOne({"gameKey": game.gameKey}).maxPlayers <= game.lobbyData.playerCount) {
+		if(GameDefinitions.findOne({"gameKey": game.gameKey}).maxPlayers <= game.players.length) {
 			throw new Meteor.Error("lobby-full", "This lobby is full.");
 		}
 
 		Games.update({"lobbyData.lobbyName": lobbyName}, {
-			$set: {"lobbyData.playerCount": game.players.length + 1},
-			$addToSet: {"players": this.userId}
+			$addToSet: {
+				"players": {
+					"_id": this.userId, "playerData": {}
+				}
+			}
 		});
 		Roles.addUsersToRoles(this.userId, ["player"], lobbyName);
 	},
@@ -71,7 +76,6 @@ Meteor.methods({
 		}
 		else {
 			Games.update({"lobbyData.lobbyName": lobbyName}, {
-				$set: {"lobbyData.playerCount": game.players.length - 1},
 				$pull: {"players": this.userId}
 			});
 		}

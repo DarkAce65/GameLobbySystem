@@ -21,6 +21,7 @@ var updateGameDefinitions = function(gameDefinitions) {
 		minPlayers: Integer,
 		maxPlayers: Integer,
 		gameDataDefaults: {
+			allowPlayersAfterStart: Boolean,
 			// Game specific data
 		}
 	}
