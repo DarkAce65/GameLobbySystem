@@ -27,7 +27,7 @@ Meteor.methods({
 		}
 
 		Games.insert(game);
-		Roles.addUsersToRoles(this.userId, ["owner"], lobbyName);
+		Roles.addUsersToRoles(this.userId, ["player", "owner"], lobbyName);
 	},
 	"joinLobby": function(lobbyName, password) {
 		if(!Meteor.users.findOne(this.userId).name) {
@@ -48,6 +48,7 @@ Meteor.methods({
 			$inc: {"lobbyData.playerCount": 1},
 			$push: {"players": this.userId}
 		});
+		Roles.addUsersToRoles(this.userId, ["player"], lobbyName);
 	},
 	"deleteLobby": function(lobbyName) {
 		var game = Games.findOne({"lobbyData.lobbyName": lobbyName});
@@ -60,7 +61,7 @@ Meteor.methods({
 
 		var update = {$unset: {}};
 		update.$unset["roles." + lobbyName] = "";
-		Meteor.users.update({"_id": {$in: game.lobbyData.players}}, update, {"multi": true});
+		Meteor.users.update({"_id": {$in: game.players}}, update, {"multi": true});
 		Games.remove({"lobbyData.lobbyName": lobbyName});
 	}
 });
