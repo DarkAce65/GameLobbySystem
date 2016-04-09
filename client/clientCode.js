@@ -84,3 +84,26 @@ Template.gamelist.events({
 		});
 	}
 });
+
+Template.lobby.events({
+	"click #leaveLobby": function(e) {
+		Meteor.call("leaveLobby", this.lobbyData.lobbyName, function(error) {
+			if(error) {
+				console.log(error.message);
+			}
+			else {
+				Router.go("gamelist");
+			}
+		});
+	},
+	"click #deleteLobby": function(e) {
+		Meteor.call("deleteLobby", this.lobbyData.lobbyName, function(error) {
+			if(error) {
+				console.log(error.message);
+			}
+			else {
+				Router.go("gamelist");
+			}
+		});
+	}
+});
