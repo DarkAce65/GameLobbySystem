@@ -46,7 +46,7 @@ Meteor.methods({
 
 		Games.update({"lobbyData.lobbyName": lobbyName}, {
 			$set: {"lobbyData.playerCount": game.players.length + 1},
-			$push: {"players": this.userId}
+			$addToSet: {"players": this.userId}
 		});
 		Roles.addUsersToRoles(this.userId, ["player"], lobbyName);
 	},
