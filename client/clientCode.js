@@ -7,17 +7,15 @@ Template.registerHelper("gameNameFromKey", function(gameKey) {
 });
 
 Template.entry.events({
-	"submit form": function(e) {
-		e.preventDefault();
-		var name = e.target.name.value.trim();
-		Meteor.call("changeName", Meteor.userId(), name, function(error) {
+	"click #loginGoogle": function(e) {
+		Meteor.loginWithGoogle(function(error) {
 			if(error) {
-				console.log(error.message);
+				console.log(error);
 			}
 			else {
 				Router.go("gamelist");
 			}
-		});
+		})
 	}
 });
 
