@@ -13,57 +13,20 @@ html, body {
 }
 
 #gamelist .lobby {
-	margin-bottom: 10px;
+	padding: 5px;
+	border-bottom: 1px solid lightgray;
+	transition: 0.25s;
 
-	.col-sm-6:last-child {
-		text-align: right;
+	&:last-child {
+		border-bottom: none;
 	}
 
-	.btn-group {
-		.btn-group-addon + .btn,
-		.btn + .btn-group-addon,
-		.btn-group-addon + .btn-group-addon {
-			margin-left: -1px;
-		}
+	&:hover {
+		background: whitesmoke;
 	}
 
-	.lobbyPassword {
-		height: 0;
+	.lobbyName {
 		overflow: hidden;
-		margin-left: auto;
-		max-width: 150px;
-		transition: 0.75s;
-
-		&.showInput {
-			height: 30px;
-		}
-	}
-
-	.btn-group-sm {
-		& > .btn-group-addon {
-			float: left;
-			padding: 5px 10px;
-			font-size: 12px;
-			line-height: 1.5;
-			color: #555;
-			text-align: center;
-			background-color: #eee;
-			border: 1px solid #ccc;
-			border-radius: 3px;
-
-			&:first-child:not(:last-child) {
-				border-bottom-right-radius: 0;
-				border-top-right-radius: 0;
-			}
-
-			&:last-child:not(:first-child) {
-				border-bottom-left-radius: 0;
-				border-top-left-radius: 0;
-			}
-
-			&:not(:first-child):not(:last-child) {
-				border-radius: 0;
-			}
-		}
+		text-overflow: ellipsis;
 	}
 }
