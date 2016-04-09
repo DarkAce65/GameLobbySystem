@@ -1,49 +1,10 @@
 <template name="gamelist">
-	<div class="container">
+	<div id="gamelist" class="container">
 		<div class="page-header">
 			<p class="h1">Games</p>
 		</div>
-		<div class="panel panel-default">
-			<div class="panel-heading">Active Games</div>
-			<div id="gamelist" class="panel-body">
-				{{#each activeGames}}
-					<div class="lobby">
-						<div>
-							<span class="pull-right">{{lobbyData.playerCount}} / {{maxPlayers gameKey}}</span>
-							<h4 class="lobbyName">{{lobbyData.lobbyName}}<br><small class="gameName">{{gameNameFromKey gameKey}}</small></h4>
-						</div>
-					</div>
-				{{/each}}
-			</div>
-		</div>
-		<div class="panel panel-default">
-			<div class="panel-heading">Search</div>
-			<div id="gamelist" class="panel-body">
-				<div class="row">
-					<div class="col-sm-5">
-						<div class="form-group">
-							<input type="text" class="form-control" placeholder="Game Name">
-						</div>
-					</div>
-					<div class="col-sm-5">
-						<div class="form-group">
-							<input type="text" class="form-control" placeholder="Password (Optional)">
-						</div>
-					</div>
-					<div class="col-sm-2">
-						<button class="btn btn-default btn-block"><i class="fa fa-search"></i> Search</button>
-					</div>
-				</div>
-				{{#each searchGames}}
-					<div class="lobby">
-						<div class="row">
-							<div class="col-sm-6"><h4 class="lobbyName">{{lobbyData.lobbyName}}<br><small class="gameName">{{gameNameFromKey gameKey}}</small></h4></div>
-							<div class="col-sm-6">{{lobbyData.playerCount}} / {{maxPlayers gameKey}}</div>
-						</div>
-					</div>
-				{{/each}}
-			</div>
-		</div>
+		{{> activeGames}}
+		{{> searchGames}}
 	</div>
 	<div id="createLobby" class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog">
 		<div class="modal-dialog">

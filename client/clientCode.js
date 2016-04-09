@@ -16,9 +16,9 @@ Template.entry.events({
 	}
 });
 
-Template.gamelist.helpers({
-	"activeGames": function() {
-		return Games.find({}, {
+Template.activeGames.helpers({
+	"games": function() {
+		return Games.find({"players": {$elemMatch: {"_id": Meteor.userId()}}}, {
 			sort: {
 				"gameName": 1,
 				"lobbyData.lobbyName": 1
@@ -27,13 +27,20 @@ Template.gamelist.helpers({
 	},
 	"maxPlayers": function(gameKey) {
 		return GameDefinitions.findOne({"gameKey": gameKey}).maxPlayers;
+	}
+});
+
+Template.searchGames.helpers({
+	"games": function() {
+		return Games.find({"players": {$elemMatch: {"_id": {$ne: Meteor.userId()}}}}, {
+			sort: {
+				"gameName": 1,
+				"lobbyData.lobbyName": 1
+			}
+		});
 	},
-	"menuHeader": function() {
-		var name = Meteor.user().name;
-		if(name) {
-			return name;
-		}
-		return "Menu";
+	"maxPlayers": function(gameKey) {
+		return GameDefinitions.findOne({"gameKey": gameKey}).maxPlayers;
 	}
 });
 
@@ -78,42 +85,5 @@ Template.gamelist.events({
 				}
 			});
 		}
-	},
-	"click .leaveLobby": function(e) {
-		Meteor.call("leaveLobby", this.lobbyData.lobbyName, function(error) {
-			if(error) {
-				console.log(error.message);
-			}
-		});
-	},
-	"click .deleteLobby": function(e) {
-		Meteor.call("deleteLobby", this.lobbyData.lobbyName, function(error) {
-			if(error) {
-				console.log(error.message);
-			}
-		});
-	}
-});
-
-Template.lobby.events({
-	"click #leaveLobby": function(e) {
-		Meteor.call("leaveLobby", this.lobbyData.lobbyName, function(error) {
-			if(error) {
-				console.log(error.message);
-			}
-			else {
-				Router.go("gamelist");
-			}
-		});
-	},
-	"click #deleteLobby": function(e) {
-		Meteor.call("deleteLobby", this.lobbyData.lobbyName, function(error) {
-			if(error) {
-				console.log(error.message);
-			}
-			else {
-				Router.go("gamelist");
-			}
-		});
 	}
 });

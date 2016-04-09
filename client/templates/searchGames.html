@@ -1,0 +1,30 @@
+<template name="searchGames">
+	<div class="panel panel-default">
+		<div class="panel-heading">Search</div>
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-sm-5">
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="Game Name">
+					</div>
+				</div>
+				<div class="col-sm-5">
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="Password (Optional)">
+					</div>
+				</div>
+				<div class="col-sm-2">
+					<button class="btn btn-default btn-block"><i class="fa fa-search"></i> Search</button>
+				</div>
+			</div>
+			{{#each games}}
+				<div class="lobby">
+					<div>
+						<span class="pull-right">{{lobbyData.playerCount}} / {{maxPlayers gameKey}}</span>
+						<h4 class="lobbyName">{{lobbyData.lobbyName}}<br><small class="gameName">{{gameNameFromKey gameKey}}</small></h4>
+					</div>
+				</div>
+			{{/each}}
+		</div>
+	</div>
+</template>
