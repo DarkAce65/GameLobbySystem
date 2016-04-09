@@ -55,40 +55,5 @@ Meteor.methods({
 				}
 			}
 		});
-	},
-	"leaveLobby": function(lobbyName) {
-		var game = Games.findOne({"lobbyData.lobbyName": lobbyName});
-		if(!game) {
-			throw new Meteor.Error(404, "Lobby not found.");
-		}
-		var inGame = false;
-		for(var i = 0; i < game.players.length; i++) {
-			if(game.players[i]._id === this.userId) {
-				inGame = true;
-			}
-		}
-		if(inGame) {
-			throw new Meteor.Error(400, "You are not in this lobby.");
-		}
-
-		if(game.players.length <= 1) {
-			Games.remove({"lobbyData.lobbyName": lobbyName});
-		}
-		else {
-			Games.update({"lobbyData.lobbyName": lobbyName}, {
-				$pull: {"players": this.userId}
-			});
-		}
-	},
-	"deleteLobby": function(lobbyName) {
-		var game = Games.findOne({"lobbyData.lobbyName": lobbyName});
-		if(!game) {
-			throw new Meteor.Error(404, "Lobby not found.");
-		}
-		if(!Roles.userIsInRole(this.userId, "owner", lobbyName)) {
-			throw new Meteor.Error(403, "You don't have permission to delete this lobby.");
-		}
-
-		Games.remove({"lobbyData.lobbyName": lobbyName});
 	}
 });
