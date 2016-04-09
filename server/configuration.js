@@ -51,5 +51,5 @@ Meteor.publish("gameList", function() {
 });
 
 Meteor.publish("gameData", function(_id) {
-	return Games.find(_id);
+	return Games.find({$and: [{"_id": _id}, {"players": this.userId}]});
 });
