@@ -42,7 +42,7 @@ Template.gamelist.events({
 						console.log(error.message);
 					}
 					else {
-						Router.go("game", {_id: lobbyId});
+						Router.go("lobby", {_id: lobbyId});
 					}
 				});
 				lobbyPassword.find("input").val("");
@@ -57,7 +57,7 @@ Template.gamelist.events({
 					console.log(error.message);
 				}
 				else {
-					Router.go("game", {_id: lobbyId});
+					Router.go("lobby", {_id: lobbyId});
 				}
 			});
 		}
