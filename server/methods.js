@@ -45,10 +45,33 @@ Meteor.methods({
 		}
 
 		Games.update({"lobbyData.lobbyName": lobbyName}, {
-			$inc: {"lobbyData.playerCount": 1},
+			$set: {"lobbyData.playerCount": game.players.length + 1},
 			$push: {"players": this.userId}
 		});
 		Roles.addUsersToRoles(this.userId, ["player"], lobbyName);
+	},
+	"leaveLobby": function(lobbyName) {
+		var game = Games.findOne({"lobbyData.lobbyName": lobbyName});
+		if(!game) {
+			throw new Meteor.Error(404, "Lobby not found.");
+		}
+		if(!Roles.userIsInRole(this.userId, "player", lobbyName)) {
+			throw new Meteor.Error(400, "You are not in this lobby.");
+		}
+
+		var update = {$unset: {}};
+		update["$unset"]["roles." + lobbyName] = "";
+		Meteor.users.update(this.userId, update);
+
+		if(game.players.length <= 1) {
+			Games.remove({"lobbyData.lobbyName": lobbyName});
+		}
+		else {
+			Games.update({"lobbyData.lobbyName": lobbyName}, {
+				$set: {"lobbyData.playerCount": game.players.length - 1},
+				$pull: {"players": this.userId}
+			});
+		}
 	},
 	"deleteLobby": function(lobbyName) {
 		var game = Games.findOne({"lobbyData.lobbyName": lobbyName});
@@ -60,7 +83,7 @@ Meteor.methods({
 		}
 
 		var update = {$unset: {}};
-		update.$unset["roles." + lobbyName] = "";
+		update["$unset"]["roles." + lobbyName] = "";
 		Meteor.users.update({"_id": {$in: game.players}}, update, {"multi": true});
 		Games.remove({"lobbyData.lobbyName": lobbyName});
 	}

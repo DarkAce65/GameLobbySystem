@@ -62,6 +62,13 @@ Template.gamelist.events({
 			});
 		}
 	},
+	"click .leaveLobby": function(e) {
+		Meteor.call("leaveLobby", this.lobbyData.lobbyName, function(error) {
+			if(error) {
+				console.log(error.message);
+			}
+		});
+	},
 	"click .deleteLobby": function(e) {
 		Meteor.call("deleteLobby", this.lobbyData.lobbyName, function(error) {
 			if(error) {
