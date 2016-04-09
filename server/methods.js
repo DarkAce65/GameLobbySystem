@@ -51,6 +51,9 @@ Meteor.methods({
 		if(Roles.userIsInRole(this.userId, "player", lobbyName)) {
 			throw new Meteor.Error("already-joined", "You have already join this lobby.");
 		}
+		if(GameDefinitions.findOne({"gameKey": game.gameKey}).maxPlayers <= game.lobbyData.playerCount) {
+			throw new Meteor.Error("lobby-full", "This lobby is full.");
+		}
 
 		Games.update({"lobbyData.lobbyName": lobbyName}, {
 			$set: {"lobbyData.playerCount": game.players.length + 1},
