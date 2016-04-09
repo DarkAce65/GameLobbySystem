@@ -12,9 +12,6 @@ Template.entry.events({
 			if(error) {
 				console.log(error);
 			}
-			else {
-				Router.go("gamelist");
-			}
 		})
 	}
 });
