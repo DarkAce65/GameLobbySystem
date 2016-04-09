@@ -28,6 +28,15 @@ var updateGameDefinitions = function(gameDefinitions) {
 }
 */
 var GAME_DEFINITIONS = {
+	test: {
+		name: "TestName",
+		minPlayers: 2,
+		maxPlayers: 15,
+		gameDataDefaults: {
+			allowPlayersAfterStart: true,
+			// Game specific data
+		}
+	}
 }
 updateGameDefinitions(GAME_DEFINITIONS);
 
@@ -48,24 +57,20 @@ Meteor.publish("gameDefinitions", function() {
 });
 
 Meteor.publish("gameList", function(searchQuery) {
+	var query = {"players": {$elemMatch: {"_id": this.userId}}};
 	if(searchQuery) {
-		return Games.find(searchQuery, {
-			fields: {
-				"gameKey": 1,
-				"inGame": 1,
-				"lobbyData": 1
-			}
-		});
+		query = searchQuery;
 	}
-	return Games.find({"players._id": this.userId}, {
+	return Games.find(query, {
 		fields: {
 			"gameKey": 1,
 			"inGame": 1,
+			"players": 1,
 			"lobbyData": 1
 		}
 	});
 });
 
 Meteor.publish("gameData", function(_id) {
-	return Games.find({$and: [{"_id": _id}, {"players": this.userId}]});
+	return Games.find({$and: [{"_id": _id}, {"players": {$elemMatch: {"_id": this.userId}}}]});
 });
