@@ -1,5 +1,9 @@
-Template.registerHelper("contains", function(item, array) {
-	return array.indexOf(item) !== -1;
+Template.registerHelper("gameNameFromKey", function(gameKey) {
+	var definition = GameDefinitions.findOne({"gameKey": gameKey});
+	if(definition) {
+		return definition.gameName;
+	}
+	return "";
 });
 
 Template.gamelist.helpers({
@@ -11,8 +15,8 @@ Template.gamelist.helpers({
 			}
 		});
 	},
-	"numPlayers": function() {
-		return this.lobbyData.players.length;
+	"maxPlayers": function(gameKey) {
+		return GameDefinitions.findOne({"gameKey": gameKey}).maxPlayers;
 	}
 });
 

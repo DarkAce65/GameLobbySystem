@@ -6,9 +6,9 @@
 		<div class="row">
 			<div class="col-sm-8">
 				<div class="panel panel-default">
-					<div class="panel-heading">{{gameName}}</div>
+					<div class="panel-heading">{{gameNameFromKey gameKey}}</div>
 					<div class="panel-body">
-						{{#each player in lobbyData.players}}
+						{{#each player in players}}
 							<p>{{player}}</p>
 						{{/each}}
 					</div>
