@@ -12,12 +12,12 @@ Template.entry.events({
 			if(error) {
 				console.log(error);
 			}
-		})
+		});
 	}
 });
 
 Template.gamelist.helpers({
-	"games": function() {
+	"activeGames": function() {
 		return Games.find({}, {
 			sort: {
 				"gameName": 1,

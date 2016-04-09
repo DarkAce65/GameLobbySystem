@@ -3,38 +3,34 @@
 		<div class="page-header">
 			<p class="h1">Games</p>
 		</div>
-		<div class="row">
-			<div class="col-sm-8">
-				<div class="panel panel-default">
-					<div class="panel-heading">Games</div>
-					<div id="gamelist" class="panel-body">
-						{{#each games}}
-							<div class="lobby row">
-								<div class="col-sm-6">
-									<h4 class="lobbyName">{{lobbyData.lobbyName}}{{#if lobbyData.private}} <i class="fa fa-lock"></i>{{/if}}<br><small class="lobbyName">{{gameNameFromKey gameKey}}</small></h4>
-								</div>
-								<div class="col-sm-6">
-									<p class="btn-group btn-group-sm">
-										<span class="btn-group-addon">{{lobbyData.playerCount}} / {{maxPlayers gameKey}}</span>
-										{{#if isInRole "player" lobbyData.lobbyName}}<a href="{{pathFor 'lobby' '{_id: _id}'}}" class="btn btn-default">Go to Lobby</a><button class="btn btn-warning leaveLobby">Leave</button>{{else}}<button class="btn btn-success joinLobby">Join</button>{{/if}}
-										{{#if isInRole "owner" lobbyData.lobbyName}}<button class="btn btn-danger deleteLobby">Delete</button>{{/if}}
-									</p>
-									{{#if lobbyData.private}}
-										<div class="lobbyPassword">
-											<input type="text" class="form-control input-sm" placeholder="Enter password...">
-										</div>
-									{{/if}}
-								</div>
-							</div>
-						{{/each}}
+		<div class="panel panel-default">
+			<div class="panel-heading">Active Games</div>
+			<div id="gamelist" class="panel-body">
+				{{#each activeGames}}
+					<div class="lobby">
+						<div class="row">
+							<div class="col-sm-6"><h4 class="lobbyName">{{lobbyData.lobbyName}}<br><small class="gameName">{{gameNameFromKey gameKey}}</small></h4></div>
+							<div class="col-sm-6">{{lobbyData.playerCount}} / {{maxPlayers gameKey}}</div>
+						</div>
 					</div>
-				</div>
+				{{/each}}
 			</div>
-			<div class="col-sm-4">
-				<div class="list-group">
-					<div class="list-group-item list-group-item-divider"><i class="fa fa-fw fa-bars"></i> {{menuHeader}}</div>
-					<button class="list-group-item" data-toggle="modal" data-target="#createLobby"><i class="fa fa-fw fa-globe"></i> Create Game Lobby</button>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">Search</div>
+			<div id="gamelist" class="panel-body">
+				<div class="form-group">
+					<label for="search" class="control-label">Search for game:</label>
+					<input id="search" placeholder="Search..." class="form-control">
 				</div>
+				{{#each searchGames}}
+					<div class="lobby">
+						<div class="row">
+							<div class="col-sm-6"><h4 class="lobbyName">{{lobbyData.lobbyName}}<br><small class="gameName">{{gameNameFromKey gameKey}}</small></h4></div>
+							<div class="col-sm-6">{{lobbyData.playerCount}} / {{maxPlayers gameKey}}</div>
+						</div>
+					</div>
+				{{/each}}
 			</div>
 		</div>
 	</div>

@@ -47,8 +47,17 @@ Meteor.publish("gameDefinitions", function() {
 	});
 });
 
-Meteor.publish("gameList", function() {
-	return Games.find({}, {
+Meteor.publish("gameList", function(searchQuery) {
+	if(searchQuery) {
+		return Games.find(searchQuery, {
+			fields: {
+				"gameKey": 1,
+				"inGame": 1,
+				"lobbyData": 1
+			}
+		});
+	}
+	return Games.find({"players._id": this.userId}, {
 		fields: {
 			"gameKey": 1,
 			"inGame": 1,
