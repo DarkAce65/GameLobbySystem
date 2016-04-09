@@ -1,5 +1,3 @@
-AccountsGuest.anonymous = true;
-
 var updateGameDefinitions = function(gameDefinitions) {
 	GameDefinitions.remove({});
 	for(var gameKey in gameDefinitions) {
