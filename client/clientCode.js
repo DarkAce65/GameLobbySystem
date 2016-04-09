@@ -17,6 +17,13 @@ Template.gamelist.helpers({
 	},
 	"maxPlayers": function(gameKey) {
 		return GameDefinitions.findOne({"gameKey": gameKey}).maxPlayers;
+	},
+	"menuHeader": function() {
+		var name = Meteor.user().name;
+		if(name) {
+			return name;
+		}
+		return "Menu";
 	}
 });
 
