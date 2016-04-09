@@ -6,6 +6,21 @@ Template.registerHelper("gameNameFromKey", function(gameKey) {
 	return "";
 });
 
+Template.entry.events({
+	"submit form": function(e) {
+		e.preventDefault();
+		var name = e.target.name.value.trim();
+		Meteor.call("changeName", Meteor.userId(), name, function(error) {
+			if(error) {
+				console.log(error.message);
+			}
+			else {
+				Router.go("gamelist");
+			}
+		});
+	}
+});
+
 Template.gamelist.helpers({
 	"games": function() {
 		return Games.find({}, {

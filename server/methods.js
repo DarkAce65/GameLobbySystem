@@ -1,4 +1,12 @@
 Meteor.methods({
+	"changeName": function(userId, name) {
+		console.log(Meteor.users.findOne({"name": name}));
+		if(Meteor.users.findOne({"name": name})) {
+			throw new Meteor.Error("name-taken", "This name has already been taken.");
+		}
+
+		Meteor.users.update(this.userId, {$set: {"name": name}});
+	},
 	"createGame": function(gameKey, lobbyName, password) {
 		if(!Meteor.users.findOne(this.userId).name) {
 			throw new Meteor.Error(401, "You haven't set a name for yourself.");
