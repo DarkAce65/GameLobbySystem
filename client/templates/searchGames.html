@@ -3,26 +3,23 @@
 		<div class="panel-heading">Search</div>
 		<div class="panel-body">
 			<form class="row">
-				<div class="col-sm-5">
+				<div class="col-sm-10">
 					<div class="form-group">
 						<input id="gameName" type="text" class="form-control" placeholder="Game Name">
 					</div>
-				</div>
-				<div class="col-sm-5">
 					<div class="form-group">
 						<input id="password" type="text" class="form-control" placeholder="Password (Optional)">
 					</div>
 				</div>
 				<div class="col-sm-2">
-					<button type="submit" class="btn btn-default btn-block"><i class="fa fa-search"></i> Search</button>
+					<button type="submit" class="btn btn-default btn-block"><i class="fa fa-search"></i><span class="visible-xs-inline"> Search</span></button>
 				</div>
 			</form>
+			<hr>
 			{{#each games}}
 				<div class="lobby">
-					<div>
-						<span class="pull-right">{{playerCount}} / {{maxPlayers gameKey}}</span>
-						<h4 class="lobbyName">{{lobbyData.lobbyName}}<br><small class="gameName">{{gameNameFromKey gameKey}}</small></h4>
-					</div>
+					<span class="playerCount label">{{playerCount}} / {{maxPlayers gameKey}}</span>
+					<h4 class="lobbyName">{{lobbyData.lobbyName}}<br><small class="gameName">{{gameNameFromKey gameKey}}</small></h4>
 				</div>
 			{{/each}}
 		</div>

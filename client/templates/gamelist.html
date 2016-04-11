@@ -3,8 +3,14 @@
 		<div class="page-header">
 			<p class="h1">Games</p>
 		</div>
-		{{> activeGames}}
-		{{> searchGames}}
+		<div class="row">
+			<div class="col-md-6">
+				{{> activeGames}}
+			</div>
+			<div class="col-md-6">
+				{{> searchGames}}
+			</div>
+		</div>
 	</div>
 	<div id="createLobby" class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog">
 		<div class="modal-dialog">
