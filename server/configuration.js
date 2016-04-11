@@ -40,14 +40,6 @@ var GAME_DEFINITIONS = {
 }
 updateGameDefinitions(GAME_DEFINITIONS);
 
-Meteor.publish("extraUserData", function() {
-	return Meteor.users.find(this.userId, {
-		fields: {
-			"name": 1
-		}
-	});
-});
-
 Meteor.publish("gameDefinitions", function() {
 	return GameDefinitions.find({}, {
 		fields: {
