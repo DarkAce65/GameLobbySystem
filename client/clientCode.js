@@ -33,7 +33,11 @@ Template.activeGames.helpers({
 		return this.players.length;
 	},
 	"maxPlayers": function(gameKey) {
-		return GameDefinitions.findOne({"gameKey": gameKey}).maxPlayers;
+		var definition = GameDefinitions.findOne({"gameKey": gameKey});
+		if(definition.maxPlayers) {
+			return definition.maxPlayers;
+		}
+		return "∞";
 	}
 });
 
@@ -60,7 +64,11 @@ Template.searchGames.helpers({
 		return this.players.length;
 	},
 	"maxPlayers": function(gameKey) {
-		return GameDefinitions.findOne({"gameKey": gameKey}).maxPlayers;
+		var definition = GameDefinitions.findOne({"gameKey": gameKey});
+		if(definition.maxPlayers) {
+			return definition.maxPlayers;
+		}
+		return "∞";
 	}
 });
 
