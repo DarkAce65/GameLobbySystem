@@ -16,6 +16,15 @@ Template.entry.events({
 	}
 });
 
+Template.navigation.helpers({
+	"username": function() {
+		if(Meteor.user().username) {
+			return Meteor.user().username;
+		}
+		return Meteor.user().profile.name;
+	}
+});
+
 Template.activeGames.onCreated(function() {
 	this.subscribe("gameList");
 });
