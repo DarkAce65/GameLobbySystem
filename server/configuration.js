@@ -33,7 +33,7 @@ var GAME_DEFINITIONS = {
 		minPlayers: 2,
 		maxPlayers: 15,
 		gameDataDefaults: {
-			allowPlayersAfterStart: true,
+			allowPlayersAfterStart: true
 			// Game specific data
 		}
 	}
@@ -65,5 +65,10 @@ Meteor.publish("gameList", function(lobbyName, password) {
 });
 
 Meteor.publish("gameData", function(_id) {
-	return Games.find({$and: [{"_id": _id}, {"players": {$elemMatch: {"_id": this.userId}}}]});
+	return Games.find({
+		$and: [
+			{"_id": _id},
+			{"players": {$elemMatch: {"_id": this.userId}}}
+		]
+	});
 });
