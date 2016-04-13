@@ -13,6 +13,7 @@ html, body {
 }
 
 #gamelist .lobby {
+	position: relative;
 	padding: 10px;
 	border-bottom: 1px solid lightgray;
 
@@ -20,8 +21,23 @@ html, body {
 		border-bottom: none;
 	}
 
-	&:hover {
-		background: whitesmoke;
+	.cover {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		cursor: pointer;
+		background-color: white;
+		opacity: 0;
+		transition: 0.3s;
+	}
+
+	&:hover .cover {
+		opacity: 0.9;
 	}
 
 	.playerCount {
