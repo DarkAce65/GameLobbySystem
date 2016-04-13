@@ -44,6 +44,9 @@ Template.activeGames.helpers({
 			}
 		});
 	},
+	"creator": function() {
+		return this.players[0]._id;
+	},
 	"playerCount": function() {
 		return this.players.length;
 	},
@@ -74,6 +77,9 @@ Template.searchGames.helpers({
 				"lobbyData.lobbyName": 1
 			}
 		});
+	},
+	"creator": function() {
+		return this.players[0]._id;
 	},
 	"playerCount": function() {
 		return this.players.length;
