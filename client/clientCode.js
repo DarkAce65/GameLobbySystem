@@ -25,6 +25,24 @@ Template.navigation.helpers({
 	}
 });
 
+Template.navigation.events({
+	"click #createGame": function(e) {
+		e.preventDefault();
+		if(Router.current().route.getName() === "gamelist") {
+			$("#createGameModal").modal("show");
+		}
+		else {
+			Router.go("gamelist", {}, {"hash": "createGame"});
+		}
+	}
+});
+
+Template.gamelist.onRendered(function() {
+	if(Router.current().params.hash === "createGame") {
+		$("#createGameModal").modal("show");
+	}
+});
+
 Template.activeGames.onCreated(function() {
 	this.subscribe("gameList");
 });
