@@ -68,7 +68,7 @@ Template.searchGames.onCreated(function() {
 
 Template.searchGames.helpers({
 	"games": function() {
-		return Games.find({"players": {$elemMatch: {"_id": {$ne: Meteor.userId()}}}}, {
+		return Games.find({"players": {$not: {$elemMatch: {"_id": Meteor.userId()}}}}, {
 			sort: {
 				"gameName": 1,
 				"lobbyData.lobbyName": 1
