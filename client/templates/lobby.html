@@ -1,26 +1,14 @@
 <template name="lobby">
 	{{> navigation}}
 	<div class="container">
-		<div class="page-header">
-			<p class="h1">{{lobbyData.lobbyName}}</p>
-		</div>
-		<div class="row">
-			<div class="col-sm-8">
-				<div class="panel panel-default">
-					<div class="panel-heading">{{gameNameFromKey gameKey}}</div>
-					<div class="panel-body">
-						{{#each player in players}}
-						<p>{{player}}</p>
-						{{/each}}
-					</div>
-				</div>
-			</div>
-			<div class="col-sm-4">
-				<div class="list-group">
-					<div class="list-group-item list-group-item-divider"><i class="fa fa-fw fa-bars"></i> Menu</div>
-					<button id="leaveLobby" class="list-group-item"><i class="fa fa-fw fa-sign-out"></i> Leave Lobby</button>
-					{{#if isInRole "owner" lobbyData.lobbyName}}<button id="deleteLobby" class="list-group-item"><i class="fa fa-fw fa-close"></i> Delete Lobby</button>{{/if}}
-				</div>
+		<p class="h1">{{lobbyData.lobbyName}}</p>
+		<hr>
+		<div class="panel panel-default">
+			<div class="panel-heading">{{gameNameFromKey gameKey}}</div>
+			<div class="panel-body">
+				{{#each player in players}}
+				<p>{{player}}</p>
+				{{/each}}
 			</div>
 		</div>
 	</div>
