@@ -37,6 +37,12 @@ Template.navigation.events({
 	}
 });
 
+Template.createGame.helpers({
+	"gameDefinitions": function() {
+		return GameDefinitions.find();
+	}
+});
+
 Template.gamelist.onRendered(function() {
 	if(Router.current().params.hash === "createGame") {
 		$("#createGameModal").modal("show");

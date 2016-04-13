@@ -1,0 +1,28 @@
+<template name="createGame">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+				<form>
+					<h2>Create Game</h2>
+					<div class="form-group">
+						<label for="lobbyName" class="control-label">Lobby name:</label>
+						<input id="lobbyName" placeholder="Lobby name" class="form-control" required autofocus>
+					</div>
+					<div class="form-group">
+						<label for="password" class="control-label">Lobby password (Optional):</label>
+						<input id="password" type="password" placeholder="Password (Optional)" class="form-control">
+					</div>
+					<div class="form-group">
+						<label for="lobbyGame" class="control-label">Game:</label>
+						<select id="lobbyGame" class="form-control">
+							{{#each gameDefinitions}}
+							<option value="{{gameKey}}">{{gameName}}</option>
+							{{/each}}
+						</select>
+					</div>
+					<button type="button" class="btn btn-primary btn-block">Create Game</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</template>
