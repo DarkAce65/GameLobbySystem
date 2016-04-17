@@ -24,6 +24,8 @@ less
 iron:router
 accounts-base
 accounts-google
+accounts-ui-unstyled
+service-configuration
 alanning:roles
 nemo64:bootstrap
 fortawesome:fontawesome
