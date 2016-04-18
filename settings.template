@@ -1,11 +1,11 @@
 {
-  "public": {},
-  "private": {
-    "oAuth": {
-      "google": {
-        "clientId": "",
-        "secret": ""
-      }
-    }
-  }
+	"public": {},
+	"private": {
+		"oAuth": {
+			"google": {
+				"clientId": "",
+				"secret": ""
+			}
+		}
+	}
 }
