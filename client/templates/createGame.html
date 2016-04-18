@@ -9,18 +9,18 @@
 						<input id="lobbyName" placeholder="Lobby name" class="form-control" required autofocus>
 					</div>
 					<div class="form-group">
-						<label for="password" class="control-label">Lobby password (Optional):</label>
-						<input id="password" type="password" placeholder="Password (Optional)" class="form-control">
+						<label for="lobbyPassword" class="control-label">Lobby password (Optional):</label>
+						<input id="lobbyPassword" type="password" placeholder="Password (Optional)" class="form-control">
 					</div>
 					<div class="form-group">
-						<label for="lobbyGame" class="control-label">Game:</label>
-						<select id="lobbyGame" class="form-control">
+						<label for="gameType" class="control-label">Game:</label>
+						<select id="gameType" class="form-control">
 							{{#each gameDefinitions}}
 							<option value="{{gameKey}}">{{gameName}}</option>
 							{{/each}}
 						</select>
 					</div>
-					<button type="button" class="btn btn-primary btn-block">Create Game</button>
+					<button type="submit" class="btn btn-primary btn-block">Create Game</button>
 				</form>
 			</div>
 		</div>
