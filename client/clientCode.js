@@ -1,3 +1,14 @@
+Tracker.autorun(function(tracker) {
+	try {
+		UserStatus.startMonitor({
+			idleOnBlur: true
+		});
+		return tracker.stop();
+	} catch(error) {
+		console.log(error);
+	}
+});
+
 Template.registerHelper("gameNameFromKey", function(gameKey) {
 	var definition = GameDefinitions.findOne({"gameKey": gameKey});
 	if(definition) {
@@ -104,6 +115,12 @@ Template.searchGames.events({
 		e.preventDefault();
 		Template.instance().searchLobbyName.set(e.target.gameName.value);
 		Template.instance().searchPassword.set(e.target.password.value);
+	}
+});
+
+Template.gamelist.helpers({
+	"users": function() {
+		return Meteor.users.find();
 	}
 });
 

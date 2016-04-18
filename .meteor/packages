@@ -26,6 +26,7 @@ accounts-base
 accounts-google
 accounts-ui
 service-configuration
+mizzao:user-status
 alanning:roles
 nemo64:bootstrap
 fortawesome:fontawesome
