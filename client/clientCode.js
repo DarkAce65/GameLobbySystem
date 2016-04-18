@@ -25,6 +25,12 @@ Template.navigation.helpers({
 	}
 });
 
+Template.navigation.events({
+	"click #logout": function() {
+		Meteor.logout();
+	}
+});
+
 Template.createGame.helpers({
 	"gameDefinitions": function() {
 		return GameDefinitions.find();
