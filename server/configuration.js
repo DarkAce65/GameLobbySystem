@@ -1,3 +1,11 @@
+DDPRateLimiter.setErrorMessage(function(rateLimitResult) {
+	return "Error, too many requests. You must wait " + Math.ceil(rateLimitResult.timeToReset / 1000) + " seconds before trying again."
+});
+DDPRateLimiter.addRule({
+	type: "method",
+	name: "createGame"
+}, 1, 10000);
+
 GameDefinitions.remove({});
 var gameDefinitions = Meteor.settings.private.gameDefinitions;
 for(var gameKey in gameDefinitions) {
