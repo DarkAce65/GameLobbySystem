@@ -1,34 +1,10 @@
-/* GAME_DEFINITIONS schema
-{
-	gameKey: {
-		name: String,
-		minPlayers: Integer,
-		maxPlayers: Integer,
-		gameDataDefaults: {
-			allowPlayersAfterStart: Boolean,
-			// Game specific data
-		}
-	}
-}
-*/
-var GAME_DEFINITIONS = {
-	test: {
-		gameName: "TestName",
-		minPlayers: 2,
-		maxPlayers: 15,
-		gameDataDefaults: {
-			allowPlayersAfterStart: true
-			// Game specific data
-		}
-	}
-}
-for(var gameKey in GAME_DEFINITIONS) {
-	if(GAME_DEFINITIONS.hasOwnProperty(gameKey)) {
-		var definition = GAME_DEFINITIONS[gameKey];
+GameDefinitions.remove({});
+var gameDefinitions = Meteor.settings.private.gameDefinitions;
+for(var gameKey in gameDefinitions) {
+	if(gameDefinitions.hasOwnProperty(gameKey)) {
+		var definition = gameDefinitions[gameKey];
 		definition.gameKey = gameKey;
-		GameDefinitions.upsert({"gameKey": gameKey}, {
-			$set: definition
-		});
+		GameDefinitions.insert(definition);
 	}
 }
 
