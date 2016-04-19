@@ -66,7 +66,9 @@ Template.createGame.events({
 		if(lobbyPassword) {
 			Meteor.call("createGame", gameType, lobbyName, lobbyPassword, callback);
 		}
-		Meteor.call("createGame", gameType, lobbyName, callback);
+		else {
+			Meteor.call("createGame", gameType, lobbyName, callback);
+		}
 	}
 });
 
