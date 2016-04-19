@@ -1,19 +1,3 @@
-var updateGameDefinitions = function(gameDefinitions) {
-	GameDefinitions.remove({});
-	for(var gameKey in gameDefinitions) {
-		if(gameDefinitions.hasOwnProperty(gameKey)) {
-			var definition = gameDefinitions[gameKey];
-			GameDefinitions.insert({
-				"gameKey": gameKey,
-				"gameName": definition.name,
-				"minPlayers": definition.minPlayers,
-				"maxPlayers": definition.maxPlayers,
-				"gameDataDefaults": definition.gameDataDefaults
-			});
-		}
-	}
-}
-
 /* GAME_DEFINITIONS schema
 {
 	gameKey: {
@@ -29,7 +13,7 @@ var updateGameDefinitions = function(gameDefinitions) {
 */
 var GAME_DEFINITIONS = {
 	test: {
-		name: "TestName",
+		gameName: "TestName",
 		minPlayers: 2,
 		maxPlayers: 15,
 		gameDataDefaults: {
@@ -38,7 +22,15 @@ var GAME_DEFINITIONS = {
 		}
 	}
 }
-updateGameDefinitions(GAME_DEFINITIONS);
+for(var gameKey in GAME_DEFINITIONS) {
+	if(GAME_DEFINITIONS.hasOwnProperty(gameKey)) {
+		var definition = GAME_DEFINITIONS[gameKey];
+		definition.gameKey = gameKey;
+		GameDefinitions.upsert({"gameKey": gameKey}, {
+			$set: definition
+		});
+	}
+}
 
 Meteor.publish("gameDefinitions", function() {
 	return GameDefinitions.find({}, {
