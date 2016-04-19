@@ -48,6 +48,28 @@ Template.createGame.helpers({
 	}
 });
 
+Template.createGame.events({
+	"submit form": function(e) {
+		e.preventDefault();
+		var gameType = e.target.gameType.value.trim();
+		var lobbyName = e.target.lobbyName.value.trim();
+		var lobbyPassword = e.target.lobbyPassword.value.trim();
+		var callback = function(error, data) {
+			if(error) {
+				console.log(error);
+			}
+			else {
+				console.log(data);
+			}
+		};
+
+		if(lobbyPassword) {
+			Meteor.call("createGame", gameType, lobbyName, lobbyPassword, callback);
+		}
+		Meteor.call("createGame", gameType, lobbyName, callback);
+	}
+});
+
 Template.activeGames.onCreated(function() {
 	this.subscribe("gameList");
 });
