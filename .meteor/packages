@@ -27,7 +27,5 @@ accounts-base
 accounts-facebook
 accounts-ui
 service-configuration
-mizzao:user-status
-alanning:roles
-nemo64:bootstrap
+huttonr:bootstrap3
 fortawesome:fontawesome
