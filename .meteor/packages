@@ -24,7 +24,7 @@ less
 ddp-rate-limiter
 iron:router
 accounts-base
-accounts-google
+accounts-facebook
 accounts-ui
 service-configuration
 mizzao:user-status

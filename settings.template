@@ -12,8 +12,8 @@
 			}
 		},
 		"oAuth": {
-			"google": {
-				"clientId": "",
+			"facebook": {
+				"appId": "",
 				"secret": ""
 			}
 		}

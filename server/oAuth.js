@@ -1,5 +1,7 @@
 var services = Meteor.settings.private.oAuth;
 
+ServiceConfiguration.configurations.remove({service: "google"});
+
 if(services) {
 	for(var service in services) {
 		ServiceConfiguration.configurations.upsert({"service": service}, {

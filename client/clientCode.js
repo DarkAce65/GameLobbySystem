@@ -18,8 +18,10 @@ Template.registerHelper("gameNameFromKey", function(gameKey) {
 });
 
 Template.entry.events({
-	"click #loginGoogle": function(e) {
-		Meteor.loginWithGoogle(function(error) {
+	"click #loginFacebook": function(e) {
+		Meteor.loginWithFacebook({
+			requestPermissions: ['email', 'public_profile', 'user_friends']
+		}, function(error) {
 			if(error) {
 				console.log(error);
 			}
